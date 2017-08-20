@@ -117,4 +117,19 @@ return [
 
     ],
 
+    /**
+     * Seeding counts (i.e. for testing purposes)
+     */
+    'seeding_count' => [
+        'users' => 5,
+        'expenses' => 5,
+        'payments' => 5
+    ],
+
+    /**
+     * Table names for persisting models
+     */
+    'payments' => 'payments',
+    'expenses' => 'expenses'
+
 ];
