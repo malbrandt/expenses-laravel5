@@ -4,9 +4,11 @@ namespace App\Policies;
 
 use App\User;
 use App\Expense;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ExpensePolicy extends BasicPolicy
 {
+    use HandlesAuthorization;
 
     /**
      * Determine whether the user can view the expense.

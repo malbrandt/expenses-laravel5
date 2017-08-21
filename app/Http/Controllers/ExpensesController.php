@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ExpensesController extends Controller
 {
@@ -13,7 +14,13 @@ class ExpensesController extends Controller
      */
     public function index()
     {
-        return view('layouts.app');
+        if (Auth::guest()) {
+            return redirect()->route('login');
+        }
+
+        $expenses = Auth::user()->expenses->all();
+
+        return view('expenses.index', compact('expenses'));
     }
 
     /**

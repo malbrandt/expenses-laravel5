@@ -1,5 +1,3 @@
-        <example></example>
-
 <div class="card mb-3">
     <div class="card-header">
         <i class="fa fa-table"></i>

@@ -13,9 +13,7 @@
         {{-- @include('layouts.partials.charts') --}}
 
         <!-- Example Tables Card -->
-        @auth
-         @include('layouts.partials.datatable')
-        @endauth
+{{--         @include('layouts.partials.datatable')--}}
     </div>
     <!-- /.container-fluid -->
 </div>

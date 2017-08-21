@@ -9,7 +9,9 @@
         "fortawesome/font-awesome": "^4.7",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
-        "laravelcollective/html": "^5.4",
+        "infyomlabs/laravel-generator": "5.4.x-dev",
+        "infyomlabs/adminlte-templates": "5.4.x-dev",
+        "laravelcollective/html": "^5.4.0",
         "spatie/laravel-permission": "^2.4"
     },
     "require-dev": {

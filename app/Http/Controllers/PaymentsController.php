@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Store\StorePayment;
 use App\Payment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentsController extends Controller
 {
@@ -15,7 +16,13 @@ class PaymentsController extends Controller
      */
     public function index()
     {
-        return view('layouts.app');
+        if (Auth::guest()) {
+            return redirect()->route('login');
+        }
+
+        $payments = Auth::user()->payments->all();
+
+        return view('payments.index', compact('payments'));
     }
 
     /**

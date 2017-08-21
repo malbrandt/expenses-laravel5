@@ -121,9 +121,9 @@ return [
      * Seeding counts (i.e. for testing purposes)
      */
     'seeding_count' => [
-        'users' => 5,
-        'expenses' => 15,
-        'payments' => 30
+        'users' => 3,
+        'expenses' => 100,
+        'payments' => 100
     ],
 
     /**
