@@ -29,6 +29,7 @@ class BasicPolicy
      */
     public function checkPermission(User $user, Model $model, $permissionPrefix = '{Expense}{Get}')
     {
+        
         return $user->can($permissionPrefix.'All')
             || ($user->id == $model->user_id
                 && $user->can($permissionPrefix.'Own'));

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Routing\Route;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -16,7 +17,9 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
-        $response = $this->get('/');
+        $response = $this->get('/expenses');
+
+        $route_is_expenses = Route::is('/expenses');
 
         $response->assertStatus(200);
     }

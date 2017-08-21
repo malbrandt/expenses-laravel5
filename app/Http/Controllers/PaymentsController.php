@@ -15,7 +15,7 @@ class PaymentsController extends Controller
      */
     public function index()
     {
-        //
+        return view('layouts.app');
     }
 
     /**

@@ -24,9 +24,12 @@ class UsersTableSeeder extends Seeder
                 'name' => config('admin.name'),
                 'email' => config('admin.email'),
                 'password' => $password
-            ]);
+            ])->assignRole(['admin', 'user']);
         }
 
-        factory(App\User::class, config('database.seeding_count.users'))->create();
+        factory(App\User::class, config('database.seeding_count.users'))
+            ->create()->each(function (App\User $u) {
+                $u->assignRole('user');
+            });
     }
 }

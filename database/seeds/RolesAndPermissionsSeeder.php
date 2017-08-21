@@ -18,7 +18,7 @@ class RolesAndPermissionsSeeder extends Seeder
         // Reset cached roles and permissions
         app()['cache']->forget('spatie.permission.cache');
 
-        $permissions_seed = config('permission.seed');
+        $permissions_seed = config('roles');
 
         foreach ($permissions_seed as $role_name => $permissions_raw) {
 

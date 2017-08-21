@@ -12,9 +12,15 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+	if (Auth::user() == false) {
+	    return view('auth.login');
+	} else {
+		return view('home');
+	}
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('/expenses', 'ExpensesController');
+Route::resource('/payments', 'PaymentsController');
