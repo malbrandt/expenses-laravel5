@@ -38,4 +38,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Expense::class);
     }
+
+    /**
+     * Return query builder for payments associated with user (through expenses)
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function payments()
+    {
+        return $this->hasManyThrough(Payment::class, Expense::class);
+    }
 }

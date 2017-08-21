@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Expense;
 use App\Payment;
 use App\User;
+use Tests\Helpers\DatabaseMigrationsWithSeeding;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -12,7 +13,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class UserExpensesPaymentsRelationsTest extends TestCase
 {
-    use DatabaseMigrations;
+    use DatabaseMigrationsWithSeeding;
     use DatabaseTransactions;
 
     private $expenses;

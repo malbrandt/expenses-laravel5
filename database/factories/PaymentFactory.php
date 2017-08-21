@@ -14,7 +14,7 @@ $factory->define(App\Payment::class, function (Faker\Generator $faker) {
         'expense_id' => function() {
             return App\Expense::inRandomOrder()->first();
         },
-        'assent' => $faker->numberBetween(-1, 1),
+//        'assent' => $faker->numberBetween(-1, 1),
         'amount' => $faker->randomFloat(2, 1, 3000),
     ];
 });

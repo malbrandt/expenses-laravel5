@@ -14,7 +14,7 @@ class UsersTableSeeder extends Seeder
     {
         $password = bcrypt(config('admin.password'));
         $admin_exists = DB::table('users')
-                ->where('email', '==', config('admin.email'))
+                ->where('email', '=', config('admin.email'))
                 ->count() != 0;
 
         if ($admin_exists == false) {
