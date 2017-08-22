@@ -6,7 +6,6 @@ use App\Expense;
 use App\Payment;
 use App\Http\Requests\Store\StorePayment;
 use App\Http\Requests\Update\UpdatePayment;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,7 +27,11 @@ class PaymentsController extends Controller
      */
     public function index()
     {
-        $payments = Auth::user()->payments()->orderByDesc('updated_at')->get();
+        $payments = Auth::user()
+            ->payments()
+            ->with('expense')
+            ->orderByDesc('updated_at')
+            ->get();
 
         return view('payments.index', compact('payments'));
     }

@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         view()->composer('layouts.navbars', function ($view) {
-            $view->with('links', User::sidebarLinks());
+            $view->with('links', config('navbar'));
         });
     }
 

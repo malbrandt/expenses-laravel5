@@ -16,7 +16,7 @@
         <div class="clearfix"></div>
         <div class="box box-primary">
             <div class="box-body">
-                @include('payments.table')
+                @include('payments.table-with-expenses')
             </div>
         </div>
     </div>

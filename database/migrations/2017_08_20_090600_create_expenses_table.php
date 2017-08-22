@@ -18,7 +18,7 @@ class CreateExpensesTable extends Migration
             $table->integer('user_id');
             $table->float('amount');
             $table->string('name');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->timestamps();
 //            $table->softDeletes();
         });

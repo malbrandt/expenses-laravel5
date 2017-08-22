@@ -49,38 +49,6 @@ class User extends Authenticatable
         return $this->hasManyThrough(Payment::class, Expense::class);
     }
 
-    public static function sidebarLinks()
-    {
-        return [
-            'admin' => [
-                'side' => [
-                    ['name' => 'Admin panel', 'route' => '/admin', 'icon' => 'fa-lock'],
-                    ['name' => 'Manager roles', 'route' => '/admin/roles', 'icon' => 'fa-server'],
-                    ['name' => 'Manager users', 'route' => '/admin/users', 'icon' => 'fa-users'],
-                ],
-                'top' => [],
-            ],
-            'user' => [
-                'side' => [
-                    ['name' => 'Expenses', 'route' => '/expenses', 'icon' => 'fa-bars'],
-                    ['name' => 'Payments', 'route' => '/payments', 'icon' => 'fa-money'],
-                ],
-                'top' => [
-                    // Logout link will be always display for logged users
-//                    ['name' => 'Logout', 'route' => '/logout', 'icon' => 'fa-sign-out']
-                ],
-            ],
-            'guest' => [
-                'side' => [],
-                'top' => [
-                    ['name' => 'Login', 'route' => '/login', 'icon' => 'fa-sign-in'],
-                    // There is nothing about registration
-//                    ['name' => 'Register', 'route' => '/register', 'icon' => 'fa-user-plus']
-                ],
-            ]
-        ];
-    }
-
     /**
      * Indicates whether this user has 'admin' role.
      *

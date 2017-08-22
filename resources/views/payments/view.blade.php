@@ -25,7 +25,7 @@ $expense = $payment->expense()->first();
             </td>
         </tr>
         <tr>
-            <td>Approval</td>
+            <td>Status</td>
             <td>@include('payments.partials.badge')</td>
         </tr>
         @if($payment['assent_modified_at'])

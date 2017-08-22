@@ -9,10 +9,12 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>{{ config('app.name', 'Expenses') }}</title>
         <!-- Styles -->
+        <link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet">
         {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
         <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
         <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/dataTables.bootstrap4.css') }}" rel="stylesheet">
         <link href="{{ asset('css/sb-admin.min.css') }}" rel="stylesheet">
     </head>
     <body class="fixed-nav" id="page-top">
@@ -31,7 +33,9 @@
         <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
         <!-- Plugin JavaScript -->
         <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
-        <script src="/vendor/chart.js/Chart.min.js"></script>
+        {{--<script src="/vendor/chart.js/Chart.min.js"></script>--}}
+        {{--<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>--}}
+        {{--<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>--}}
         <script src="/vendor/datatables/jquery.dataTables.js"></script>
         <script src="/vendor/datatables/dataTables.bootstrap4.js"></script>
         <!-- Custom scripts for this template -->

@@ -27,7 +27,7 @@ class DatabaseSeedingTest extends TestCase
 
         foreach ($seeding_counts as $table_name => $seeding_count) {
             if ($table_name == 'users') {
-                $seeding_count += 1; // add +1 for admin account
+                $seeding_count += count(config('accounts'));
             }
 
             self::assertEquals($seeding_count, DB::table($table_name)->count());

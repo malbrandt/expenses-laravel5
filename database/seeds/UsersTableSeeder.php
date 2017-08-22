@@ -12,28 +12,28 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $password = bcrypt(config('admin.password'));
-        $admin_exists = DB::table('users')
-                ->where('email', '=', config('admin.email'))
-                ->count() != 0;
-
-        if ($admin_exists == false) {
-            App\User::create([
-//                'id' => DB::table('users')->max('id') + 1,
-//                'created_at' => Carbon::now(),
-                'name' => config('admin.name'),
-                'email' => config('admin.email'),
-                'password' => $password
-            ])->assignRole(['admin', 'user']);
+        foreach (config('accounts') as $account_data) {
+            $this->createAccount($account_data);
         }
 
         factory(App\User::class, config('database.seeding_count.users'))
             ->create()->each(function (App\User $u) {
                 $u->assignRole('user');
             });
+    }
 
-        App\User::latest()->update([
-            'email' => 'email@domain.com'
-        ]);
+    private function createAccount($data)
+    {
+        $exists = DB::table('users')
+            ->where('email', '=', $data['email'])
+            ->count() != 0;
+
+        if ($exists === false) {
+            App\User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => bcrypt($data['password'])
+            ])->assignRole($data['role']);
+        }
     }
 }

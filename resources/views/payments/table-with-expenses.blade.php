@@ -14,6 +14,7 @@ if (isset($expense)) {
             <table class="table table-bordered" width="100%" id="dtTable" cellspacing="0">
                 <thead>
                 <tr>
+                    <th>Expense</th>
                     <th>Amount</th>
                     <th>Status</th>
                     <th>Moderated at</th>
@@ -27,6 +28,7 @@ if (isset($expense)) {
                 </thead>
                 <tfoot>
                 <tr>
+                    <th>Expense</th>
                     <th>Amount</th>
                     <th>Status</th>
                     <th>Moderated at</th>
@@ -42,6 +44,9 @@ if (isset($expense)) {
                 @foreach($payments as $payment)
                     <?php /** @var \App\Payment $payment */ ?>
                     <tr class="{{ !$payment->isModerated() ?: ($payment->isApproved() ? 'table-success' : 'table-danger') }}">
+                        <td>
+                            <a href="{{route('expenses.show', $payment->expense->id)}}">{{$payment->expense->name}}</a>
+                        </td>
                         <td>{{ $payment['amount'] }}</td>
                         <td>@include('payments.partials.badge')</td>
                         <td>@include('payments.partials.moderated_at')</td>
