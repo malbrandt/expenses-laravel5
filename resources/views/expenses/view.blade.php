@@ -39,7 +39,16 @@
         </tbody>
     </table>
 
-    {{-- TODO: Payments (related to this expense) --}}
+    @if(!empty($payments))
+        @include('payments.table', ['payments' => $expense->payments])
+    @endif
 
-
+    <a class="btn btn-secondary" href="{{route('expenses.index')}}">
+        <i class="fa fa-chevron-left"></i>
+        Back
+    </a>
+    <a class="btn btn-success" href="{{route('add-payment', $expense->id)}}">
+        <i class="fa fa-money"></i>
+        Add Payment
+    </a>
 @endsection

@@ -11,6 +11,15 @@ use Illuminate\Support\Facades\Auth;
 
 class ExpensesController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,14 +27,7 @@ class ExpensesController extends Controller
      */
     public function index()
     {
-        if (Auth::guest()) {
-            return redirect()->route('login');
-        }
-
-        /** @var User $user */
-        $user = Auth::user();
-        $expenses = $user->expenses()->orderByDesc('updated_at')->get();
-//        $expenses = Auth::user()->expenses();
+        $expenses = Auth::user()->expenses()->orderByDesc('updated_at')->get();
 
         return view('expenses.index', compact('expenses'));
     }
@@ -50,10 +52,7 @@ class ExpensesController extends Controller
     {
         $this->authorize('create', Expense::class);
 
-        /** @var User $user */
-        $user = Auth::user();
-
-        $expense = $user->expenses()->create(
+        $expense = Auth::user()->expenses()->create(
             $request->only(['name', 'amount', 'description'])
         );
 
@@ -71,7 +70,9 @@ class ExpensesController extends Controller
     {
         $this->authorize('view', $expense);
 
-        return view('expenses.view', compact('expense'));
+        $payments = $expense->payments;
+
+        return view('expenses.view', compact('expense', 'payments'));
     }
 
     /**

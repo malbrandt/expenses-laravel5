@@ -13,24 +13,29 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
-Route::get('/', function () {
-    if (Auth::user() == false) {
-        return view('auth.login');
-    } else {
-        return view('home');
-    }
-});
+//
+//Route::get('/', function () {
+//    if (Auth::user() == false) {
+//        return view('auth.login');
+//    } else {
+//        return view('home');
+//    }
+//});
 
 Auth::routes();
 
-Route::group(['middleware' => ['web']], function () {
+Route::group(['middleware' => ['web', 'auth']], function () {
 
     Route::resource('expenses', 'ExpensesController');
 
+    /**
+     * Payments related (CRUD, moderating)
+     */
+    Route::post('payments/{payment}/moderate', 'PaymentsController@moderate')->name('moderate-payment');
+    Route::resource('payments', 'PaymentsController');
+    Route::get('expenses/{expense}/add-payment', 'PaymentsController@create')->name('add-payment');
+    Route::post('expenses/{expense}/add-payment', 'PaymentsController@store')->name('store-payment');
+
 });
 
-
-Route::get('/home', 'HomeController@index')->name('home');
-//Route::resource('expenses', 'ExpensesController');
-//Route::resource('payments', 'PaymentsController');
+Route::get('/', 'HomeController@index')->name('home');

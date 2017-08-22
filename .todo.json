@@ -3,20 +3,20 @@
     "Migrations": true,
     "Model": true,
     "Repository": false,
-    "API Controller": false,
-    "Create Request": false,
-    "Update Request": false,
-    "Routes": false,
+    "API Controller": true,
+    "Create Request": true,
+    "Update Request": true,
+    "Routes": true,
     "RepositoryTests": false,
-    "Policy": false,
+    "Policy": true,
     "Views": {
-      "create": false,
-      "edit": false,
+      "create": true,
+      "edit": true,
       "index": true,
       "show": true,
-      "table": false,
-      "fields": false,
-      "action buttons": false
+      "table": true,
+      "fields": true,
+      "action buttons": true
     }
   },
   "Payments": {

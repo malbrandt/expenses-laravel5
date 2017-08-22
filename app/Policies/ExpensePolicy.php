@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ExpensePolicy extends BasicPolicy
 {
-    use HandlesAuthorization;
 
     public function before()
     {
@@ -59,8 +58,7 @@ class ExpensePolicy extends BasicPolicy
     {
         // user can update the expense only when it doesn't have any
         // accepted or rejected payments
-        return $this->hasPermissionTo($user, $expense, 'ExpenseUpdate')
-            && $expense->hasModeratedPayments() == false;
+        return $this->hasPermissionTo($user, $expense, 'ExpenseUpdate');
     }
 
     /**

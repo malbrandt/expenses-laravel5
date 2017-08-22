@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            New expense
+            Adding payment
         </h1>
     </section>
     <div class="content">
@@ -13,9 +13,9 @@
 
             <div class="box-body">
                 <div class="row">
-                    {!! Form::open(['route' => 'expenses.store']) !!}
+                    {!! Form::open(['route' => ['store-payment', $expense->id], 'method' => 'POST']) !!}
 
-                    @include('expenses.fields')
+                    @include('payments.fields')
 
                     {!! Form::close() !!}
                 </div>

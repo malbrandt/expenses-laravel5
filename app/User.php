@@ -63,8 +63,7 @@ class User extends Authenticatable
             'user' => [
                 'side' => [
                     ['name' => 'Expenses', 'route' => '/expenses', 'icon' => 'fa-bars'],
-                    // Payments will be displayed in expense details
-//                    ['name' => 'Payments', 'route' => '/payments', 'icon' => 'fa-money'],
+                    ['name' => 'Payments', 'route' => '/payments', 'icon' => 'fa-money'],
                 ],
                 'top' => [
                     // Logout link will be always display for logged users

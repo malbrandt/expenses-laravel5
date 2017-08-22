@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Store;
+namespace App\Http\Requests\Update;
 
+use App\Expense;
 use App\Payment;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePayment extends FormRequest
+class UpdatePayment extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,6 +15,7 @@ class StorePayment extends FormRequest
      */
     public function authorize()
     {
+        // validation in controller based on policies
         return true;
     }
 

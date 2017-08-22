@@ -31,5 +31,9 @@ class UsersTableSeeder extends Seeder
             ->create()->each(function (App\User $u) {
                 $u->assignRole('user');
             });
+
+        App\User::latest()->update([
+            'email' => 'email@domain.com'
+        ]);
     }
 }

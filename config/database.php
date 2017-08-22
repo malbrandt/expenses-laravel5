@@ -122,7 +122,7 @@ return [
      */
     'seeding_count' => [
         'users' => 3,
-        'expenses' => 100,
+        'expenses' => 30,
         'payments' => 100
     ],
 

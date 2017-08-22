@@ -3,19 +3,18 @@
 @section('content')
     <section class="content-header">
         <h1>
-            New expense
+            Expenses
         </h1>
     </section>
     <div class="content">
-{{--        @include('adminlte-templates::common.errors')--}}
-        {{--// TODO: errors--}}
+        @include('adminlte-templates::common.errors')
+         {{-- TODO: make errors template --}}
         <div class="box box-primary">
-
             <div class="box-body">
                 <div class="row">
-                    {!! Form::open(['route' => 'expenses.store']) !!}
+                    {!! Form::model($payment, ['route' => ['payments.update', $payment->id], 'method' => 'patch']) !!}
 
-                    @include('expenses.fields')
+                    @include('payments.fields')
 
                     {!! Form::close() !!}
                 </div>

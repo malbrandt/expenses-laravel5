@@ -35,8 +35,9 @@ class Expense extends Model
      */
     public function hasModeratedPayments()
     {
-        $assents = $this->payments()->pluck('assent')->toArray();
-        return (count(array_unique($assents)) === 1 && end($assents) === null);
+        $assents = ($this->payments()->pluck('assent')->toArray());
+
+        return in_array(1, $assents) || in_array(-1, $assents);
     }
 
     public static function validationRules()

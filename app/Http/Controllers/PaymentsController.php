@@ -2,13 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Store\StorePayment;
+use App\Expense;
 use App\Payment;
+use App\Http\Requests\Store\StorePayment;
+use App\Http\Requests\Update\UpdatePayment;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PaymentsController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,11 +28,7 @@ class PaymentsController extends Controller
      */
     public function index()
     {
-        if (Auth::guest()) {
-            return redirect()->route('login');
-        }
-
-        $payments = Auth::user()->payments->all();
+        $payments = Auth::user()->payments()->orderByDesc('updated_at')->get();
 
         return view('payments.index', compact('payments'));
     }
@@ -28,74 +36,118 @@ class PaymentsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Expense $expense
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Expense $expense)
     {
-        //
+        $this->authorize('update', $expense);
+
+        return view('payments.create', compact('expense'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
+     * @param Expense $expense
      * @param StorePayment|Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePayment $request)
+    public function store(Expense $expense, StorePayment $request)
     {
-        $this->authorize('store', Payment::class);
+        $this->authorize('create', Payment::class);
 
-        $request->validate();
+        $payment = Auth::user()->payments()->make(
+            $request->only(['amount'])
+        );
 
-        Payment::create($request->only('amount'));
+        $payment->expense_id = $expense->id;
+        $payment->save();
 
-        return redirect()
-            ->route('payments.index')
-            ->with('flash_message', 'Payment created successfully');
+        return redirect(route('expenses.show', $expense->id));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Payment $payment
      * @return \Illuminate\Http\Response
+     * @internal param int $id
      */
-    public function show($id)
+    public function show(Payment $payment)
     {
+        $this->authorize('view', $payment);
 
+        return view('payments.view', compact('payment'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Payment $payment
      * @return \Illuminate\Http\Response
+     * @internal param int $id
      */
-    public function edit($id)
+    public function edit(Payment $payment)
     {
-        //
+        $this->authorize('update', $payment);
+
+        return view('payments.edit', compact('payment'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param UpdatePayment|Request $request
+     * @param Payment $payment
      * @return \Illuminate\Http\Response
+     * @internal param int $id
      */
-    public function update(Request $request, $id)
+    public function update(UpdatePayment $request, Payment $payment)
     {
-        //
+        $this->authorize('update', $payment);
+
+        $payment->update($request->only($payment->getFillable()));
+
+        return redirect(route('payments.show', $payment->id));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Payment $payment
      * @return \Illuminate\Http\Response
+     * @internal param int $id
      */
-    public function destroy($id)
+    public function destroy(Payment $payment)
     {
-        //
+        $this->authorize('delete', $payment);
+
+        $payment->delete();
+
+        return redirect()->back();
+    }
+
+    /**
+     * Allows to moderate the payment
+     *
+     * @param Payment $payment
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function moderate(Payment $payment)
+    {
+        // TODO: create PaymentModerateAll permission
+
+        if (Auth::user()->isAdmin()) {
+            $action = request('moderate');
+
+            if ($action === 'approve') $payment->accept();
+            elseif ($action === 'reject') $payment->reject();
+        }
+        else {
+            abort(403);
+        }
+
+        return redirect()->back();
     }
 }

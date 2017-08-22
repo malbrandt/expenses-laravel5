@@ -21,7 +21,7 @@ class CreatePaymentsTable extends Migration
                 ->nullable()
                 ->comment = "-1 => rejected,\n" .
                             " 1 => accepted.";
-            $table->datetime('assent_modified_at')->nullable();
+            $table->timestamp('assent_modified_at')->nullable();
             $table->timestamps();
         });
     }
