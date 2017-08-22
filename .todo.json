@@ -1,0 +1,42 @@
+{
+  "Expenses": {
+    "Migrations": true,
+    "Model": true,
+    "Repository": false,
+    "API Controller": false,
+    "Create Request": false,
+    "Update Request": false,
+    "Routes": false,
+    "RepositoryTests": false,
+    "Policy": false,
+    "Views": {
+      "create": false,
+      "edit": false,
+      "index": false,
+      "show": false,
+      "table": false,
+      "edit": false,
+      "action buttons": false
+    }
+  },
+  "Payments": {
+    "Migrations": true,
+    "Model": true,
+    "Repository": false,
+    "API Controller": false,
+    "Create Request": false,
+    "Update Request": false,
+    "Routes": false,
+    "RepositoryTests": false,
+    "Policy": false,
+    "Views": {
+      "create": false,
+      "edit": false,
+      "index": false,
+      "show": false,
+      "table": false,
+      "edit": false,
+      "action buttons": false
+    }
+  }
+}
