@@ -63,7 +63,8 @@ class User extends Authenticatable
             'user' => [
                 'side' => [
                     ['name' => 'Expenses', 'route' => '/expenses', 'icon' => 'fa-bars'],
-                    ['name' => 'Payments', 'route' => '/payments', 'icon' => 'fa-money'],
+                    // Payments will be displayed in expense details
+//                    ['name' => 'Payments', 'route' => '/payments', 'icon' => 'fa-money'],
                 ],
                 'top' => [
                     // Logout link will be always display for logged users
@@ -79,5 +80,15 @@ class User extends Authenticatable
                 ],
             ]
         ];
+    }
+
+    /**
+     * Indicates whether this user has 'admin' role.
+     *
+     * @return bool true, if has 'admin' role
+     */
+    public function isAdmin()
+    {
+        return $this->hasRole('admin');
     }
 }

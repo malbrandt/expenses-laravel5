@@ -27,11 +27,10 @@ class BasicPolicy
      * @param string $permissionPrefix Only {model}{action} without {owner} suffix
      * @return bool true, if the user has access to passed model
      */
-    public function checkPermission(User $user, Model $model, $permissionPrefix = '{Expense}{Get}')
+    public function hasPermissionTo(User $user, Model $model, $permissionPrefix = '{Expense}{Get}')
     {
-        
         return $user->can($permissionPrefix.'All')
-            || ($user->id == $model->user_id
+            || ($user->id ===  $model->user_id
                 && $user->can($permissionPrefix.'Own'));
     }
 }

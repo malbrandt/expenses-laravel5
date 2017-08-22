@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Store;
+namespace App\Http\Requests\Update;
 
 use App\Expense;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreExpense extends FormRequest
+class UpdateExpense extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,6 +14,7 @@ class StoreExpense extends FormRequest
      */
     public function authorize()
     {
+        // validation in controller based on policies
         return true;
     }
 

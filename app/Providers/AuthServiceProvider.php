@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Expense;
+use App\Payment;
+use App\Policies\ExpensePolicy;
+use App\Policies\PaymentPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -15,7 +19,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
         'App\Expense' => 'App\Policies\ExpensePolicy',
-        'App\Payment' => 'App\Policies\PaymentPolicy',
+//        Payment::class => PaymentPolicy::class,
     ];
 
     /**
@@ -25,9 +29,9 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerPolicies();
+        parent::registerPolicies();
 
-        Gate::resource('expense', 'ExpensePolicy');
-        Gate::resource('payment', 'PaymentPolicy');
+//        Gate::resource('expenses', 'ExpensePolicy');
+//        Gate::resource('payment', 'PaymentPolicy');
     }
 }

@@ -12,10 +12,10 @@
     "Views": {
       "create": false,
       "edit": false,
-      "index": false,
-      "show": false,
+      "index": true,
+      "show": true,
       "table": false,
-      "edit": false,
+      "fields": false,
       "action buttons": false
     }
   },
@@ -35,7 +35,7 @@
       "index": false,
       "show": false,
       "table": false,
-      "edit": false,
+      "fields": false,
       "action buttons": false
     }
   }

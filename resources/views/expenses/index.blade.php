@@ -1,60 +1,23 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="card mb-3">
-        <div class="card-header">
-            <i class="fa fa-table"></i>
-            Expenses
-        </div>
-        <div class="card-body">
-            <div class="table-responsive table-sm">
-                <table class="table table-bordered" width="100%" id="dataTable" cellspacing="0">
-                    <thead>
-                    <tr>
-                        <th>Amount</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Created at</th>
-                        <th>Updated at</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tfoot>
-                    <tr>
-                        <th>Amount</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Created at</th>
-                        <th>Updated at</th>
-                        <th>Actions</th>
-                    </tr>
-                    </tfoot>
-                    <tbody>
-                    @foreach($expenses as $expense)
-                        <tr>
-                            <td>{{ $expense['amount'] }}</td>
-                            <td>{{ $expense['name'] }}</td>
-                            <td>{{ $expense['description'] }}</td>
-                            <td>
-                                <span class="table-span-text">{{ $expense['created_at'] }}</span>
-                                <span class="table-span-date">{{ $expense['created_at']->diffForHumans(Carbon\Carbon::now()) }}</span>
-                            </td>
-                            <td>
-                                <span class="table-span-text">{{ $expense['updated_at'] }}</span>
-                                <span class="table-span-date">{{ $expense['updated_at']->diffForHumans(Carbon\Carbon::now()) }}</span>
-                            </td>
-                            <td>
-                                {{-- Actions --}}
+    <div class="content">
+        <section class="content-header">
+            <h1 class="pull-left">Expenses</h1>
+            <h1 class="pull-right">
+                <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('expenses.create') !!}">Add New</a>
+            </h1>
+        </section>
+        <div class="clearfix"></div>
 
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+        {{--@include('flash::message')--}}
+        {{--TODO: Flash message--}}
+
+        <div class="clearfix"></div>
+        <div class="box box-primary">
+            <div class="box-body">
+                @include('expenses.table')
             </div>
-        </div>
-        <div class="card-footer small text-muted">
-            Expenses
         </div>
     </div>
 @endsection

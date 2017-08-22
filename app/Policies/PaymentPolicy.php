@@ -16,7 +16,7 @@ class PaymentPolicy extends BasicPolicy
      */
     public function view(User $user, Payment $payment)
     {
-        return $this->checkPermission($user, $payment, 'PaymentGet');
+        return $this->hasPermissionTo($user, $payment, 'PaymentGet');
     }
 
     /**
@@ -40,7 +40,7 @@ class PaymentPolicy extends BasicPolicy
      */
     public function update(User $user, Payment $payment)
     {
-        return $this->checkPermission($user, $payment, 'PaymentUpdate');
+        return $this->hasPermissionTo($user, $payment, 'PaymentUpdate');
     }
 
     /**
@@ -52,6 +52,6 @@ class PaymentPolicy extends BasicPolicy
      */
     public function delete(User $user, Payment $payment)
     {
-        return $this->checkPermission($user, $payment, 'PaymentDestroy');
+        return $this->hasPermissionTo($user, $payment, 'PaymentDestroy');
     }
 }

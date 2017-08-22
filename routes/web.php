@@ -15,15 +15,22 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-	if (Auth::user() == false) {
-	    return view('auth.login');
-	} else {
-		return view('home');
-	}
+    if (Auth::user() == false) {
+        return view('auth.login');
+    } else {
+        return view('home');
+    }
 });
 
 Auth::routes();
 
+Route::group(['middleware' => ['web']], function () {
+
+    Route::resource('expenses', 'ExpensesController');
+
+});
+
+
 Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('/expenses', 'ExpensesController');
-Route::resource('/payments', 'PaymentsController');
+//Route::resource('expenses', 'ExpensesController');
+//Route::resource('payments', 'PaymentsController');

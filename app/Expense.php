@@ -26,4 +26,24 @@ class Expense extends Model
     {
         $this->payments()->save($payment);
     }
+
+    /**
+     * Indicates whether the expense has any moderated payments. Functions compares
+     * all related payments 'assent' column to null.
+     *
+     * @return bool true, if any payments weren't moderated yet
+     */
+    public function hasModeratedPayments()
+    {
+        $assents = $this->payments()->pluck('assent')->toArray();
+        return (count(array_unique($assents)) === 1 && end($assents) === null);
+    }
+
+    public static function validationRules()
+    {
+        return [
+            'amount' => 'required|numeric|min:1',
+            'name' => 'required|string|min:1',
+        ];
+    }
 }
