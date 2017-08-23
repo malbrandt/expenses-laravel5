@@ -12,10 +12,8 @@ class ExpensePolicy extends BasicPolicy
 
     public function before()
     {
-        $user = Auth::user();
-
         // Admin can do anything ...
-        if ($user instanceof User && $user->isAdmin()) {
+        if (Auth::user()->isAdmin()) {
             return true;
         }
 
@@ -58,7 +56,11 @@ class ExpensePolicy extends BasicPolicy
     {
         // user can update the expense only when it doesn't have any
         // accepted or rejected payments
-        return $this->hasPermissionTo($user, $expense, 'ExpenseUpdate');
+        return $user->hasPermissionTo('ExpenseUpdateAll')
+            || ($expense->hasModeratedPayments() === false
+                && ($expense->user_id === $user->id
+                    && $user->hasPermissionTo('ExpenseUpdateOwn')));
+
     }
 
     /**
@@ -72,7 +74,9 @@ class ExpensePolicy extends BasicPolicy
     {
         // user can update the expense only when it doesn't have any
         // accepted or rejected payments
-        return $this->hasPermissionTo($user, $expense, 'ExpenseDestroy')
-            && $expense->hasModeratedPayments() == false;
+        return $user->hasPermissionTo('ExpenseDestroyAll')
+            || ($expense->hasModeratedPayments() === false
+                && ($expense->user_id === $user->id
+                    && $user->hasPermissionTo('ExpenseDestroyOwn')));
     }
 }

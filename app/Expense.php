@@ -27,6 +27,13 @@ class Expense extends Model
         $this->payments()->save($payment);
     }
 
+    public function scopeFilter($query, $filters)
+    {
+        if ($user = $filters['user']) {
+            $query->where('user_id', '=', $user);
+        }
+    }
+
     /**
      * Indicates whether the expense has any moderated payments. Functions compares
      * all related payments 'assent' column to null.

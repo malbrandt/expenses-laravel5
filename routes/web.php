@@ -11,16 +11,9 @@
 |
 */
 
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-//
-//Route::get('/', function () {
-//    if (Auth::user() == false) {
-//        return view('auth.login');
-//    } else {
-//        return view('home');
-//    }
-//});
 
 Auth::routes();
 
@@ -35,7 +28,28 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::resource('payments', 'PaymentsController');
     Route::get('expenses/{expense}/add-payment', 'PaymentsController@create')->name('add-payment');
     Route::post('expenses/{expense}/add-payment', 'PaymentsController@store')->name('store-payment');
+    // scoping - payments {pending|rejected|approved}
+    Route::get('payments/status/{status}', 'PaymentsController@status')->name('payments.status');
 
+
+    /**
+     * Admin related
+     */
+    Route::group(['middleware' => 'role:admin'], function () {
+        Route::get('admin', 'AdminController@index');
+
+        // scoping - user's expenses and payments
+        foreach (['expenses', 'payments'] as $var) {
+            Route::get("$var/user/{user}", function (User $user) use ($var) {
+                $$var = $user->{$var}()->orderBy('created_at')->get();
+                return view("$var.index", compact("$var"));
+            });
+        }
+
+        Route::get('payments/user/{user}/{status}', 'PaymentsController@status')->name('payments.user.status');
+        Route::resource('users', 'UsersController');
+//        Route::get('admin.roles', 'RolesController@index');
+    });
 });
 
 Route::get('/', 'HomeController@index')->name('home');

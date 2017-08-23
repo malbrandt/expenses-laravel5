@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Helpers\ItemCards;
+use App\Http\Controllers\AdminController;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -16,6 +19,10 @@ class AppServiceProvider extends ServiceProvider
     {
         view()->composer('layouts.navbars', function ($view) {
             $view->with('links', config('navbar'));
+        });
+
+        view()->composer('layouts.partials.icon-cards', function($view) {
+            $view->with('cards', ItemCards::forUser(Auth::user()));
         });
     }
 

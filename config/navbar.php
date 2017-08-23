@@ -3,9 +3,17 @@
 return [
     'admin' => [
         'side' => [
-            ['name' => 'Admin panel', 'route' => '/admin', 'icon' => 'fa-lock'],
-            ['name' => 'Manage roles', 'route' => '/admin/roles', 'icon' => 'fa-server'],
-            ['name' => 'Manage users', 'route' => '/admin/users', 'icon' => 'fa-users'],
+//            ['name' => 'Admin panel', 'route' => '/admin', 'icon' => 'fa-lock'],
+            ['name' => 'Pending payments', 'route' => url('payments/status/pending'), 'icon' => 'fa-clock-o'],
+            [
+                'name' => 'Manage roles',
+                'route' => 'roles',
+                'icon' => 'fa-server',
+                'links' => [
+
+                ]
+            ],
+            ['name' => 'Manage users', 'route' => 'users', 'icon' => 'fa-users'],
         ],
         'top' => [],
     ],

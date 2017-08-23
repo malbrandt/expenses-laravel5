@@ -32,16 +32,13 @@
                         <td>{{ $expense['name'] }}</td>
                         <td>{{ $expense['amount'] }}</td>
                         <td>
-                            <span class="table-span-text">{{ $expense['updated_at'] }}</span>
-                            <span class="table-span-date">{{ $expense['updated_at']->diffForHumans(Carbon\Carbon::now()) }}</span>
+                            @include('partials.datediff', ['date'=>$expense['updated_at']])
                         </td>
                         <td>{{ $expense['description'] }}</td>
                         <td>
-                            <span class="table-span-text">{{ $expense['created_at'] }}</span>
-                            <span class="table-span-date">{{ $expense['created_at']->diffForHumans(Carbon\Carbon::now()) }}</span>
+                            @include('partials.datediff', ['date'=>$expense['created_at']])
                         </td>
                         <td>
-                            {{-- Actions --}}
                             @include('expenses.actions', ['id' => $expense['id']])
                         </td>
                     </tr>

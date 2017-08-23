@@ -49,6 +49,24 @@ class User extends Authenticatable
         return $this->hasManyThrough(Payment::class, Expense::class);
     }
 
+    public function paymentsPending()
+    {
+        return $this->payments()
+            ->where('assent', '=', null);
+    }
+
+    public function paymentsAccepted()
+    {
+        return $this->payments()
+            ->where('assent', '=', 1);
+    }
+
+    public function paymentsRejected()
+    {
+        return $this->payments()
+            ->where('assent', '=', -1);
+    }
+
     /**
      * Indicates whether this user has 'admin' role.
      *
@@ -57,5 +75,14 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->hasRole('admin');
+    }
+
+    public static function validationRules()
+    {
+        return [
+            'name' => 'required|string|min:1',
+            'email' => 'required|string|email|unique:users',
+            'password' => 'required|string|min:6',
+        ];
     }
 }

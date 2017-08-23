@@ -3,7 +3,7 @@
 @section('content')
     <div class="content">
         <section class="content-header">
-            <h1 class="pull-left">Expenses</h1>
+            <h1 class="pull-left">Users</h1>
         </section>
         <div class="clearfix"></div>
 
@@ -13,7 +13,7 @@
         <div class="clearfix"></div>
         <div class="box box-primary">
             <div class="box-body">
-                @include('expenses.table')
+                @include('users.table')
             </div>
         </div>
     </div>

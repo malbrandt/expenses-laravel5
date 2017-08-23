@@ -6,6 +6,7 @@ use App\Expense;
 use App\Payment;
 use App\Http\Requests\Store\StorePayment;
 use App\Http\Requests\Update\UpdatePayment;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -39,13 +40,11 @@ class PaymentsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param Expense $expense
      * @return \Illuminate\Http\Response
      */
     public function create(Expense $expense)
     {
-        $this->authorize('update', $expense);
-
+        // TODO: Condition: sum($expense->payments.amount) < $expense->amount
         return view('payments.create', compact('expense'));
     }
 
@@ -146,11 +145,47 @@ class PaymentsController extends Controller
 
             if ($action === 'approve') $payment->accept();
             elseif ($action === 'reject') $payment->reject();
-        }
-        else {
+        } else {
             abort(403);
         }
 
         return redirect()->back();
+    }
+
+    public function status(User $user = null, $status)
+    {
+//        if ($user === null) $user = Auth::user();
+        if (empty($user['attributes'])) {
+            // laravel's model binding hax
+            $user = null;
+        }
+
+        $payment_status = [
+            'pending' => null,
+            'rejected' => -1,
+            'accepted' => 1
+        ];
+
+
+        // TODO: refactor this weird construction below (simplify)
+        if ( ! $user && $status && Auth::user()->isAdmin()) {
+            // ADMIN: get all payments with assent=$status
+            $payments = Payment
+                ::where('assent', '=', $payment_status[$status]);
+        } elseif ( ! $user && $status) {
+            // USER: get all payments with assent=$status
+            $payments = Auth::user()
+                ->payments()
+                ->where('assent', '=', $payment_status[$status]);
+        } elseif ( $user && $status && Auth::user()->isAdmin()) {
+            // ADMIN: get all $user's payments with assent=$status
+            $payments = $user
+                ->payments()
+                ->where('assent', '=', $payment_status[$status]);
+        } else $payments = [];
+
+        $payments->orderBy('created_at', 'desc');
+
+        return view('payments.index', ['payments' => $payments->get()]);
     }
 }

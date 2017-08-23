@@ -40,6 +40,7 @@
         <script src="/vendor/datatables/dataTables.bootstrap4.js"></script>
         <!-- Custom scripts for this template -->
         <script src="js/sb-admin.min.js"></script>
+        <!-- Scripts -->
         @yield('scripts')
     </body>
 </html>

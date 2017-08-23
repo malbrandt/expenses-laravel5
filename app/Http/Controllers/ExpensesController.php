@@ -86,7 +86,7 @@ class ExpensesController extends Controller
     {
         $this->authorize('update', $expense);
 
-        return view('expenses.edit', ['expenses' => $expense]);
+        return view('expenses.edit', compact('expense'));
     }
 
     /**
