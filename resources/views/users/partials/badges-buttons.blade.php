@@ -8,7 +8,7 @@
         </a>
     </li>
     <li class="form-group">
-        <a href="{{route('payments.user.status', [$user['id'], 'rejected'])}}" class="btn btn-info">
+        <a href="{{route('payments.user.status', [$user['id'], 'pending'])}}" class="btn btn-info">
             <i class="fa fa-clock-o"></i> Pending
             <span class="badge badge-default">
                 {{ $user['counts']['payments']['pending'] }}

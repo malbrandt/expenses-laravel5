@@ -7,19 +7,16 @@
  */
 
 return [
-
     'admin' => [
         'name' => 'Admin',
         'email' => 'marek.malbrandt@gmail.com',
         'password' => 'admin',
         'roles' => ['admin', 'user']
     ],
-
     'user' => [
         'name' => 'User',
         'email' => 'email@domain.com',
         'password' => 'secret',
         'roles' => ['user']
     ],
-
 ];

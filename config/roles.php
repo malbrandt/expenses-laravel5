@@ -6,9 +6,9 @@ return [
      *
      * "{Model}{Action}{Owner}"
      *
-     * {Model} - name of the model class
-     * {Action} - name of action (get/store/update/destroy)
-     * {Owner} - the owner of model
+     * {Model} - name of the model class {Expense|Payment}
+     * {Action} - name of action {Get|Store|Update|Delete}
+     * {Owner} - the owner of model {Own|All}
      *
      * In example, if we got permission named ExpenseUpdateAll, we can update
      * expenses owned by anyone, but with permission named ExpenseUpdateOwn,
