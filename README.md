@@ -11,6 +11,7 @@ Hover over link to see its address (route with variable). `CTRL + click` opens l
 `{user}` stands for User id in the database (*users.id*). `{expense}`, Expense id, etc.
 
 * Login page <img src="https://github.com/mar469/expenses-laravel5/blob/vanilla-ui/_screenshots_/login-page.png" width="50"/>
+* Homepage <img src="https://github.com/mar469/expenses-laravel5/blob/vanilla-ui/_screenshots_/user-homepage.png" width="50"/>
 * Admin (also inherits all permissions from user role)
 	* admin menu <img src="https://github.com/mar469/expenses-laravel5/blob/vanilla-ui/_screenshots_/admin-menu.png" width="50"/>
 	* localhost:8000/[users](http://localhost:8000/users)
