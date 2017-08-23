@@ -9,17 +9,16 @@
         <!-- Email Field -->
         <div class="form-group col-sm-12 col-lg-12">
             {!! Form::label('email', 'Email:') !!}
-            {!! Form::textarea('email', null, ['class' => 'form-control']) !!}
+            {!! Form::text('email', null, ['class' => 'form-control']) !!}
         </div>
     </div>
     <div class="col-lg-6">
         <!-- Password Field -->
         <div class="form-group col-lg-12">
             {!! Form::label('password', 'Password:') !!}
-            {!! Form::text('password', null, ['class' => 'form-control']) !!}
+            {!! Form::password('password', null, ['class' => 'form-control']) !!}
         </div>
 
-        {{-- TODO: Roles checkboxes --}}
         <div class="form-group col-lg-12">
             <div class="card">
                 <div class="card-block">
@@ -27,9 +26,14 @@
 
                     <div class="form-group">
                         @foreach($roles as $role)
+                            @if(isset($user))
+                                {{ $checked = $user->hasRole($role['name']) }}
+                            @else
+                                {{ $checked = null }}
+                            @endif
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    {!! Form::checkbox('roles', $role['id'], $user->hasRole($role['name']),  ['id' => 'roles', 'class' => 'form-check-input']) !!}
+                                    {!! Form::checkbox('roles[]', $role['id'], $checked,  ['id' => 'roles', 'class' => 'form-check-input']) !!}
                                     {{$role['name']}}
                                 </label>
                             </div>
@@ -38,7 +42,7 @@
                 </div>
             </div>
         </div>
-    <!-- Submit Field -->
+        <!-- Submit Field -->
         <div class="form-group col-sm-12">
             {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
             <a href="{!! route('users.index') !!}" class="btn btn-default">Cancel</a>

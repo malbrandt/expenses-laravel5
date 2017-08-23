@@ -36,19 +36,18 @@ Route::group(['middleware' => ['web', 'auth']], function () {
      * Admin related
      */
     Route::group(['middleware' => 'role:admin'], function () {
-        Route::get('admin', 'AdminController@index');
 
         // scoping - user's expenses and payments
         foreach (['expenses', 'payments'] as $var) {
             Route::get("$var/user/{user}", function (User $user) use ($var) {
-                $$var = $user->{$var}()->orderBy('created_at')->get();
+                $$var = $user->{$var}()->orderBy('created_at', 'desc')->get();
                 return view("$var.index", compact("$var"));
             });
         }
 
         Route::get('payments/user/{user}/{status}', 'PaymentsController@status')->name('payments.user.status');
         Route::resource('users', 'UsersController');
-//        Route::get('admin.roles', 'RolesController@index');
+        Route::resource('roles', 'RolesController');
     });
 });
 

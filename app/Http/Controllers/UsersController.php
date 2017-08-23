@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Store\StoreUser;
 use App\User;
-use Illuminate\Http\Request;
+use App\Http\Requests\Update\UpdateUser;
 use Spatie\Permission\Models\Role;
+use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
@@ -29,7 +30,10 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        // for role(-s) assigning
+        $roles = Role::all();
+
+        return view('users.create', compact('roles'));
     }
 
     /**
@@ -43,14 +47,11 @@ class UsersController extends Controller
         $this->authorize('create', User::class);
 
         /** @var User $user */
-        $user = \App\User::make([
-            $request->only([
-                'name', 'email', 'password',
-            ])
-        ]);
+        $user = User::make($request->all());
 
-        $user->assignRole('user');
+        $user->password = bcrypt($request['password']);
         $user->save();
+        $this->assignRolesFromRequest($request, $user);
 
         return redirect(route('users.show', $user->id));
     }
@@ -112,15 +113,16 @@ class UsersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
+     * @param UpdateUser|Request $request
+     * @param  \App\User $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUser $request, User $user)
     {
         $this->authorize('update', $user);
 
         $user->update($request->only($user->getFillable()));
+        $this->assignRolesFromRequest($request, $user);
 
         return redirect(route('users.show', $user->id));
     }
@@ -138,5 +140,19 @@ class UsersController extends Controller
         $user->delete();
 
         return redirect('users');
+    }
+
+    /**
+     * @param Request $request
+     * @param $user
+     */
+    private function assignRolesFromRequest(Request $request, $user)
+    {
+        $roles = Role
+            ::whereIn('id', $request['roles'])
+            ->pluck('name')
+            ->toArray();
+
+        $user->assignRole($roles);
     }
 }

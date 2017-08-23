@@ -21,13 +21,35 @@
                 @foreach (array_keys(config('roles')) as $role)
                     @hasanyrole($role)
                     @foreach ($links[$role]['side'] as $link)
-                        <li class="nav-item{{\App\Helpers\Menu::activeMenu()}}" data-toggle="tooltip" data-placement="right" title="{{$link['name']}}">
-                            <a class="nav-link" href="{{$link['route']}}">
-                                <i class="fa fa-fw {{$link['icon']}}"></i>
-                                <span class="nav-link-text">
+                        @if(isset($link['links']))
+
+                            {{-- With second level menu --}}
+                            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="{{$link['name']}}">
+                                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapse{{$link['name']}}">
+                                    <i class="fa fa-fw {{$link['icon']}}"></i>
+                                    <span class="nav-link-text">
+                {{$link['name']}}</span>
+                                </a>
+                                <ul class="sidenav-second-level collapse" id="collapse{{$link['name']}}">
+                                    @foreach($link['links'] as $second)
+                                        <li>
+                                            <a href="{{ $second['route'] }}">
+                                            <i class="fa {{$second['icon']}}"></i> {{$second['name']}}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                        @else
+                            {{-- Link without second level --}}
+                            <li class="nav-item{{\App\Helpers\Menu::activeMenu()}}" data-toggle="tooltip" data-placement="right" title="{{$link['name']}}">
+                                <a class="nav-link" href="{{$link['route']}}">
+                                    <i class="fa fa-fw {{$link['icon']}}"></i>
+                                    <span class="nav-link-text">
                     {{$link['name']}}</span>
-                            </a>
-                        </li>
+                                </a>
+                            </li>
+                        @endif
+
                     @endforeach
                     @endhasanyrole
                     <hr />
@@ -43,12 +65,11 @@
         </ul>
         @if (Auth::guest() == false)
             <ul class="navbar-nav ml-auto">
-{{-- 
+{{--
                 @include('layouts.partials.top.messages')
                 @include('layouts.partials.top.notifications')
                 @include('layouts.partials.top.search-box')
  --}}
-                
                 <li class="nav-item">
                     @if (Auth::guest())
 

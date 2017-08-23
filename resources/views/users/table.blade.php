@@ -5,7 +5,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive table-hover table-striped">
-            <table class="table table-bordered" width="100%" id="dtTable" cellspacing="0">
+            <table class="table table-bordered dataTable" width="100%" id="dtTable" cellspacing="0">
                 <thead>
                     <tr>
                         <th>Name</th>

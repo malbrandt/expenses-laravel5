@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Expenses
+            Role
         </h1>
     </section>
     <div class="content">
@@ -11,13 +11,14 @@
         <div class="box box-primary">
             <div class="box-body">
                 <div class="row">
-                    {!! Form::model($expenses, ['route' => ['expenses.update', $expenses->id], 'method' => 'patch']) !!}
+                    {!! Form::model($role, ['route' => ['roles.update', $role->id], 'method' => 'patch']) !!}
 
-                    @include('expenses.fields')
+                    @include('roles.fields')
 
                     {!! Form::close() !!}
                 </div>
             </div>
         </div>
     </div>
+    @include('roles.actions', ['id' => $role['id']])
 @endsection

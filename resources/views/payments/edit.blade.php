@@ -8,7 +8,6 @@
     </section>
     <div class="content">
         @include('adminlte-templates::common.errors')
-         {{-- TODO: make errors template --}}
         <div class="box box-primary">
             <div class="box-body">
                 <div class="row">

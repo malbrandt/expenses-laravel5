@@ -3,24 +3,48 @@
 return [
     'admin' => [
         'side' => [
-//            ['name' => 'Admin panel', 'route' => '/admin', 'icon' => 'fa-lock'],
-            ['name' => 'Pending payments', 'route' => url('payments/status/pending'), 'icon' => 'fa-clock-o'],
             [
-                'name' => 'Manage roles',
-                'route' => 'roles',
-                'icon' => 'fa-server',
+                'name' => 'Roles',
+                'route' => '#',
+                'icon' => 'fa-user-md',
                 'links' => [
-
+//                    ['name' => 'Create role', 'route' => '/roles/create', 'icon' => 'fa-user-plus'], // TODO: creating roles
+                    ['name' => 'View roles', 'route' => '/roles', 'icon' => 'fa-list'],
                 ]
             ],
-            ['name' => 'Manage users', 'route' => 'users', 'icon' => 'fa-users'],
+            [
+                'name' => 'Users',
+                'route' => 'users',
+                'icon' => 'fa-users',
+                'links' => [
+                    ['name' => 'Create user', 'route' => '/users/create', 'icon' => 'fa-plus'],
+                    ['name' => 'View users', 'route' => '/users', 'icon' => 'fa-list'],
+                ]
+            ],
         ],
         'top' => [],
     ],
     'user' => [
         'side' => [
-            ['name' => 'Expenses', 'route' => '/expenses', 'icon' => 'fa-bars'],
-            ['name' => 'Payments', 'route' => '/payments', 'icon' => 'fa-money'],
+            [
+                'name' => 'Your&nbsp;Expenses',
+                'route' => '#',
+                'icon' => 'fa-bars',
+                'links' => [
+                    ['name' => 'Add expense', 'route' => '/expenses/create', 'icon' => 'fa-plus'],
+                    ['name' => 'View expenses', 'route' => '/expenses', 'icon' => 'fa-list'],
+                ]
+            ],
+            [
+                'name' => 'Payments',
+                'route' => '#',
+                'icon' => 'fa-money',
+                'links' => [
+                    ['name' => 'Pending payments', 'route' => '/payments/status/pending', 'icon' => 'fa-clock-o'],
+                    ['name' => 'Accepted payments', 'route' => '/payments/status/accepted', 'icon' => 'fa-thumbs-up'],
+                    ['name' => 'Rejected payments', 'route' => '/payments/status/accepted', 'icon' => 'fa-thumbs-down'],
+                ]
+            ],
         ],
         'top' => [
             // Logout link will be always display for logged users

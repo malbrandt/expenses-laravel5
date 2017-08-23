@@ -11,7 +11,7 @@ if (isset($expense)) {
     </div>
     <div class="card-body">
         <div class="table-responsive table-hover table-striped">
-            <table class="table table-bordered" width="100%" id="dtTable" cellspacing="0">
+            <table class="table table-bordered dataTable" width="100%" cellspacing="0">
                 <thead>
                 <tr>
                     <th>Amount</th>
@@ -51,12 +51,12 @@ if (isset($expense)) {
                         <td>
                             @include('partials.datediff', ['date' => $payment['updated_at']])
                         </td>
-                        <td>
+                        <td class="no-sort">
                             {{-- Actions --}}
                             @include('payments.actions')
                         </td>
                         @role('admin')
-                        <td>
+                        <td class="no-sort">
                             @include('payments.partials.moderate_actions')
                         </td>
                         @endrole
@@ -70,14 +70,4 @@ if (isset($expense)) {
         Payments
     </div>
 </div>
-
-@section('scripts')
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#dtTable').dataTable({
-                "ordering": true,
-                "order": [[2, "desc"]]
-            });
-        });
-    </script>
-@endsection
+@include('partials.datatable')

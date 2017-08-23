@@ -3,19 +3,22 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Expenses
+            New role
         </h1>
     </section>
     <div class="content">
         @include('adminlte-templates::common.errors')
         <div class="box box-primary">
+
             <div class="box-body">
                 <div class="row">
-                    {!! Form::model($expenses, ['route' => ['expenses.update', $expenses->id], 'method' => 'patch']) !!}
+                    <div class="col-md-12">
+                        {!! Form::open(['route' => 'roles.store']) !!}
 
-                    @include('expenses.fields')
+                        @include('roles.fields')
 
-                    {!! Form::close() !!}
+                        {!! Form::close() !!}
+                    </div>
                 </div>
             </div>
         </div>

@@ -38,7 +38,7 @@
                         <td>
                             @include('partials.datediff', ['date'=>$expense['created_at']])
                         </td>
-                        <td>
+                        <td class="no-sort">
                             @include('expenses.actions', ['id' => $expense['id']])
                         </td>
                     </tr>
@@ -57,7 +57,11 @@
         $(document).ready(function () {
             $('#dtTable').dataTable({
                 "ordering": true,
-                "order": [[2, "desc"]]
+                "order": [[2, "desc"]],
+                "columnDefs": [ {
+                    "targets"  : 'no-sort',
+                    "orderable": false,
+                }]
             });
         });
     </script>
